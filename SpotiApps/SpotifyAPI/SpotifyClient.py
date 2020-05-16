@@ -1,24 +1,25 @@
 
 
-import sys
+import sys,os
 try:
     import spotipy
     import spotipy.util as util
 except ImportError:
     raise ImportError('There is problem with importing Spotipy modules - use pip install spotipy')
 
-SPOTIPY_CLIENT_ID='B4f21284ad1d4859bdd778b67981f67b'
-SPOTIPY_CLIENT_SECRET='1155467e609e4d409adc03c14ba86742'
-SPOTIPY_REDIRECT_URI='https://osmooza.com/callback/'
+# SPOTIPY_CLIENT_ID='B4f21284ad1d4859bdd778b67981f67b'
+# SPOTIPY_CLIENT_SECRET='1155467e609e4d409adc03c14ba86742'
+# SPOTIPY_REDIRECT_URI='https://osmooza.com/callback/'
 
 class SpotifClient:
     """
     """
     def __init__(
         self,
-        clientID=SPOTIPY_CLIENT_ID,
-        secretID=SPOTIPY_CLIENT_SECRET,
-        redirctURI = SPOTIPY_REDIRECT_URI):
+        clientID= os.environ['SPOTIPY_CLIENT_ID'],
+        secretID= os.environ['SPOTIPY_CLIENT_SECRET'],
+        redirctURI = os.environ['SPOTIPY_REDIRECT_URI']
+        ):
         """
         Taking the Cspotify client and secret IDs to connect Spotify
         clientID - your spotify client ID as you got it on regerstration

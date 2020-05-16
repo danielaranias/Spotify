@@ -15,13 +15,13 @@ def test_connecting_to_spotify_API_with_wrong_token():
 
 
 def test_connecting_to_spotify_API_with_correct_token():
-    ClientID = 'B4f21284ad1d4859bdd778b67981f67b'
-    SecretID = '1155467e609e4d409adc03c14ba86742'
-    username = 'd2k6pyuiogq6ph8ap0gg596ub'
+
+    username = os.environ['SPOTIPY_USERNAME']
+    clientID= os.environ['SPOTIPY_CLIENT_ID']
+    secretID= os.environ['SPOTIPY_CLIENT_SECRET']
     scope = 'user-library-read'
 
-    sp = SpotifyClient.SpotifClient(ClientID,SecretID)
+    sp = SpotifyClient.SpotifClient(clientID,secretID)
     sp.Connect(username,scope)
-
     assert sp.isConnected() == True
 

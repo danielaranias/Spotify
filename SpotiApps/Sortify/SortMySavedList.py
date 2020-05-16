@@ -25,7 +25,7 @@ class SortMySavedList():
         """
         returns list of all tracks (need also to read the 'next' for getting ALL tracks) 
         """
-        username = 'd2k6pyuiogq6ph8ap0gg596ub'
+        username = os.environ['SPOTIPY_USERNAME']
         scope = 'user-library-read'
         self.saved_tracks_list = []
         self.sp_data = self.sp_client.Connect(username,scope)
