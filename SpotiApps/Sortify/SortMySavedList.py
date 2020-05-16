@@ -17,12 +17,9 @@ class SortMySavedList():
         self.isSavedTracksAvailable = False
         
     def printSavedTracked(self):
-        self.show_tracks(self.saved_tracks_list)
+        self.showTracks(self.saved_tracks_list)
 
-        #showing also after the limit (20)
-        # while self.saved_tracks['next']:
-        #     results = self.sp_data.next(self.saved_tracks)
-        #     self.show_tracks(results)
+        
 
     def readSavedTracks(self)->'list':
         """
@@ -33,17 +30,26 @@ class SortMySavedList():
         self.saved_tracks_list = []
         self.sp_data = self.sp_client.Connect(username,scope)
     
+        
         if self.sp_client.isConnected() == True:
             print('We are connected to Spotify!!!!')
-            
-            tracks = self.sp_data.current_user_saved_tracks()
-            self.saved_tracks_list = tracks['items']
-            while tracks['next']:
-                self.saved_tracks_list += self.sp_data.next(tracks)['items']
-            
-            self.isSavedTracksAvailable =  True
-            
 
+            try:
+
+                tracks_index = self.sp_data.current_user_saved_tracks()
+                #adding tracks to the list
+                self.saved_tracks_list = tracks_index['items']
+                while tracks_index['next']:
+                    #reading and adding the Next tracks into the tracks list 
+                    self.saved_tracks_list += self.sp_data.next(tracks_index)['items']
+                    # increasing the index to the correct placxe
+                    tracks_index = self.sp_data.next(tracks_index)
+                
+                self.isSavedTracksAvailable =  True
+
+            except ImportError:
+                raise ImportError('There was a problem reading all the track list!!')
+            
         else:
             print('Failed to connect to Spotify')
             self.isSavedTracksAvailable =  False
