@@ -27,14 +27,20 @@ class SortMySavedList():
             print('We are connected to Spotify!!!!')
             
             results = self.sp_data.current_user_saved_tracks()
-            for item in results['items']:
-                track = item['track']
-                print(track['name'] + ' - ' + track['artists'][0]['name'])
+            self.show_tracks(results)
+            while results['next']:
+                results = self.sp_data.next(results)
+                self.show_tracks(results)
 
             self.isSavedTracksAvailable =  True
 
         else:
             print('Failed to connect to Spotify')
             self.isSavedTracksAvailable =  False
+
+    def show_tracks(self,results):
+        for item in results['items']:
+            track = item['track']
+            print("%32.32s %s" % (track['artists'][0]['name'], track['name']))
 
 
