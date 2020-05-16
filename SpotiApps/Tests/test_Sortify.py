@@ -3,9 +3,9 @@ import os
 import sys
 
 sys.path.append('../')
-from SpotiApps.Sortify.SpotifyAPI import SortSongs as SS
+from SpotiApps.Sortify.SortMySavedList import SortMySavedList
 
-
-def test_A():
-    b = SS()
-    assert b.isPlaylistSorted() == True
+def test_read_saved_list():
+    sp = SortMySavedList()
+    sp.readSavedTracks()
+    assert sp.isSavedTracksAvailable == True
