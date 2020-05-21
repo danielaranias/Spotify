@@ -7,13 +7,20 @@ sys.path.append('../')
 from SpotiApps.SpotifyAPI import SpotifyClient
 
 
-class SortMySavedList():
+class Sortify():
     """
     This class connects to Spotify user account and sort the Saved/Liked tracks list
     """
 
-    def __init__(self):
-        self.sp_client = SpotifyClient.SpotifClient()
+    def __init__(
+        self,
+        clientID,
+        secretID,
+        redirctURI,
+        username
+        ):
+        self.sp_client = SpotifyClient.SpotifClient(clientID,secretID,redirctURI,username)
+        self.username = username
         self.isSavedTracksAvailable = False
         
     def printSavedTracked(self):
@@ -25,10 +32,9 @@ class SortMySavedList():
         """
         returns list of all tracks (need also to read the 'next' for getting ALL tracks) 
         """
-        username = os.environ['SPOTIPY_USERNAME']
         scope = 'user-library-read'
         self.saved_tracks_list = []
-        self.sp_data = self.sp_client.Connect(username,scope)
+        self.sp_data = self.sp_client.Connect(self.username,scope)
     
         
         if self.sp_client.isConnected() == True:

@@ -16,9 +16,10 @@ class SpotifClient:
     """
     def __init__(
         self,
-        clientID= os.environ['SPOTIPY_CLIENT_ID'],
-        secretID= os.environ['SPOTIPY_CLIENT_SECRET'],
-        redirctURI = os.environ['SPOTIPY_REDIRECT_URI']
+        clientID,
+        secretID,
+        redirctURI,
+        username
         ):
         """
         Taking the Cspotify client and secret IDs to connect Spotify
@@ -28,9 +29,11 @@ class SpotifClient:
         """
 
         print('SpotifClient starts...')
+        
         self.client_id = clientID
         self.secret_id = secretID
         self.redirect_uri = redirctURI
+        self.username = username
         self._isConnected = False
         
     def isConnected(self):
@@ -48,7 +51,7 @@ class SpotifClient:
         to spotify.com), unless a locally cached access token exist from a previous authorization/authentication.
         """
         token = util.prompt_for_user_token(
-            userName,
+            self.username,
             scope,
             self.client_id,
             self.secret_id,
