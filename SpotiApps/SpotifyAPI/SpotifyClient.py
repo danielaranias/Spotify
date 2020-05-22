@@ -35,11 +35,13 @@ class SpotifClient:
         self.redirect_uri = redirctURI
         self.username = username
         self._isConnected = False
+
+        #self.Connect()
         
     def isConnected(self):
         return self._isConnected
 
-    def Connect(self,userName,scope):
+    def Connect(self,scope):
         """
         Connecting to Spotify
         returing Spotify Client handle
@@ -50,19 +52,24 @@ class SpotifClient:
         page in your browser (and require you to log in if you are not already logged in
         to spotify.com), unless a locally cached access token exist from a previous authorization/authentication.
         """
-        token = util.prompt_for_user_token(
+        try:
+            token = util.prompt_for_user_token(
             self.username,
             scope,
             self.client_id,
             self.secret_id,
             self.redirect_uri)
+        except ImportError:
+            self._isConnected = False
+            print(" onnecting to Spotify failed") 
+
 
         if token:
             sp = spotipy.Spotify(auth=token)
             self._isConnected = True
             return sp
         else:
-            print("Can't get token for", userName)
+            print("Can't get token for", self.username)
             self._isConnected = False 
         
         

@@ -5,24 +5,22 @@ import sys
 sys.path.append('../')
 from SpotiApps.SpotifyAPI import SpotifyClient
 
-secretID = os.environ['SPOTIPY_CLIENT_ID']
-clientID = os.environ['SPOTIPY_CLIENT_SECRET']
-redireXctURI = os.environ['SPOTIPY_REDIRECT_URI']
-username = os.environ['SPOTIPY_USERNAME']
-
-def test_connecting_to_spotify_API_with_wrong_token():
-    ClientID = '###'
-    SecretID = '@@@'
-    sp = SpotifyClient.SpotifClient(clientID,secretID,redirctURI,username)
-    assert sp.isConnected() == False
+SPOTIPY_CLIENT_ID = os.environ['SPOTIPY_CLIENT_ID']
+SPOTIPY_CLIENT_SECRET = os.environ['SPOTIPY_CLIENT_SECRET']
+SPOTIPY_REDIRECT_URI = os.environ['SPOTIPY_REDIRECT_URI']
+SPOTIPY_USERNAME = os.environ['SPOTIPY_USERNAME']
 
 
 def test_connecting_to_spotify_API_with_correct_token():
 
-    
     scope = 'user-library-read'
 
-    sp = SpotifyClient.SpotifClient(clientID,secretID)
-    sp.Connect(username,scope)
+    sp = SpotifyClient.SpotifClient(
+        SPOTIPY_CLIENT_ID,
+        SPOTIPY_CLIENT_SECRET,
+        SPOTIPY_REDIRECT_URI,
+        SPOTIPY_USERNAME)
+
+    sp.Connect(scope)
     assert sp.isConnected() == True
 

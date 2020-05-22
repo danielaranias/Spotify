@@ -34,7 +34,7 @@ class Sortify():
         """
         scope = 'user-library-read'
         self.saved_tracks_list = []
-        self.sp_data = self.sp_client.Connect(self.username,scope)
+        self.sp_data = self.sp_client.Connect(scope)
     
         
         if self.sp_client.isConnected() == True:
