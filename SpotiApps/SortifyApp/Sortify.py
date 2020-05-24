@@ -86,10 +86,12 @@ class Sortify():
         tracks_ids = []
         tracks_names = []
         
+        
         #collecting all IDs for getting later the features
         for item in tracksList:
             tracks_ids.append(item['track']['id'])
             tracks_names.append(item['track']['name'])
+        
 
         #calling to spotify API to get tracks features (MAX 100) - much faster than one by one
         track_index = 0
@@ -100,6 +102,8 @@ class Sortify():
             
 
         df = pd.DataFrame(track_features_list)
+        df['track name'] = tracks_names
+        
 
         return df
 
